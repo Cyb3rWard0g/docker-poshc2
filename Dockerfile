@@ -15,8 +15,11 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV TERM="xterm"
 
-# ******* POSHC2 ******
-ENV POSHC2_HOME /opt/PoshC2
+# **** Set ARG Values ****
+ARG POSHC2_HOME=/opt/PoshC2
+
+# ******* POSHC2 ENV ******
+ENV POSHC2_HOME ${POSHC2_HOME}
 
 # Install dependencies
 RUN apt-get update --fix-missing \
@@ -26,8 +29,7 @@ RUN apt-get update --fix-missing \
   && rm -rf /var/lib/apt/lists/* \
   # Clone PoshC2 Repository
   && git clone https://github.com/nettitude/PoshC2 ${POSHC2_HOME} \
-  && ${POSHC2_HOME}/Install.sh \
-  && mkdir ${POSHC2_PROJECT}
+  && ${POSHC2_HOME}/Install.sh
 
 COPY scripts/poshc2-entrypoint.sh /opt/
 
