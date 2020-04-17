@@ -22,7 +22,9 @@ ARG POSHC2_HOME=/opt/PoshC2
 ENV POSHC2_HOME ${POSHC2_HOME}
 
 # Install dependencies
-RUN apt-get update --fix-missing \
+RUN wget http://security.debian.org/debian-security/pool/updates/main/i/icu/libicu63_63.1-6+deb10u1_amd64.deb -O libicu63.deb \
+  && dpkg -i libicu63.deb \
+  && apt-get update --fix-missing \
   && apt-get -qy full-upgrade \
   && apt-get install -y --no-install-recommends wget nano git \
   && apt-get -qy clean autoremove \
