@@ -101,6 +101,7 @@ if [[ "$JITTER" ]]; then
 fi
 
 # KillDate: "01/06/2020"
+# dd/MM/yyyy
 if [[ "$KILL_DATE" ]]; then
   echo "[+] Setting PoshC2 KillDate to ${KILL_DATE}"
   sed -i "s/^KillDate:.*$/KillDate: \"${KILL_DATE}\"/g" ${POSHC2_HOME}/config.yml
