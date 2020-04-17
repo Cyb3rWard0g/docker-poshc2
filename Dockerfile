@@ -26,11 +26,13 @@ RUN apt-get update --fix-missing \
   && rm -rf /var/lib/apt/lists/* \
   # Clone PoshC2 Repository
   && git clone https://github.com/nettitude/PoshC2 ${POSHC2_HOME} \
-  && ${POSHC2_HOME}/Install.sh
+  && ${POSHC2_HOME}/Install.sh \
+  && mkdir ${POSHC2_PROJECT}
 
-COPY scripts/poshc2-entrypoint.sh ${POSHC2_HOME}/
+COPY scripts/poshc2-entrypoint.sh /opt/
 
-RUN chmod +x ${POSHC2_HOME}/poshc2-entrypoint.sh
+RUN chmod +x /opt/poshc2-entrypoint.sh
 
 WORKDIR ${POSHC2_HOME}
-ENTRYPOINT ["./poshc2-entrypoint.sh"]
+ENTRYPOINT ["/opt/poshc2-entrypoint.sh"]
+CMD ["/bin/bash"]
