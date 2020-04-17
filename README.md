@@ -4,6 +4,12 @@ PoshC2 is a proxy aware C2 framework used to aid penetration testers with red te
 
 ## Getting Started
 
+Set up local docker settings
+
+```
+curl -sSL https://raw.githubusercontent.com/nettitude/PoshC2/master/Install-for-Docker.sh | bash
+```
+
 Create Project Directory
 
 ```
