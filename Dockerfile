@@ -5,7 +5,7 @@
 # https://poshc2.readthedocs.io/en/latest/install_and_setup/docker.html
 # https://github.com/nettitude/PoshC2/blob/master/Dockerfile
 
-FROM phusion/baseimage:0.11
+FROM ubuntu:bionic
 LABEL maintainer="Roberto Rodriguez @Cyb3rWard0g"
 LABEL description="Dockerfile PoshC2."
 
@@ -24,12 +24,13 @@ ENV POSHC2_HOME ${POSHC2_HOME}
 # Install dependencies
 RUN apt-get update --fix-missing \
   && apt-get -qy full-upgrade \
-  && apt-get install -y --no-install-recommends wget nano git mono-runtime mono-devel \
+  && apt-get install -y --no-install-recommends wget nano git mono-runtime mono-devel ca-certificates gnupg \
   && wget http://security.debian.org/debian-security/pool/updates/main/i/icu/libicu63_63.1-6+deb10u1_amd64.deb -O libicu63.deb \
   && dpkg -i libicu63.deb \
   && apt-get -qy clean autoremove \
   && rm -rf /var/lib/apt/lists/* \
   # Clone PoshC2 Repository
+  && wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | apt-key add - \
   && git clone https://github.com/nettitude/PoshC2 ${POSHC2_HOME} \
   && ${POSHC2_HOME}/Install.sh
 
